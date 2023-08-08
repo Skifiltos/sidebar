@@ -2,33 +2,37 @@ import React from "react";
 import { AiFillCloseCircle } from "react-icons/ai";
 import styled from "styled-components";
 import { links, SocialBar } from "./links";
+import { useGlobalContext } from "./context";
+
 const Sidebar = () => {
-  return <Wrapper>
-    <div className="sidebar-content">
-      <header>
-        <div className="nav-brand">
-          <h4>Sidebar</h4>
-        </div>
-        <button-btn className="btn-delete">
-          <AiFillCloseCircle className="nav-icon" />
-        </button-btn>
-      </header>
-      <ul className="sidebar-links">
-        {
-          links.map((link) => {
-            return (
-              <li key={link.id} className="link">
-                <a href={link.url}>{link.text}</a>
-              </li>
-            );
-          })
-        }
-      </ul>
-      <footer>
-        <SocialBar />
-      </footer>
-    </div>
-  </Wrapper>;
+  const { isSidebarOpen, closeSidebar } = useGlobalContext();
+  return (
+    <Wrapper className={`${isSidebarOpen ? "show-sidebar" : ""}`}>
+      <div className="sidebar-content">
+        <header>
+          <div className="nav-brand">
+            <h4>Sidebar</h4>
+          </div>
+          <button className="btn btn-delete" onClick={closeSidebar}>
+            <AiFillCloseCircle className="nav-icon" />
+          </button>
+        </header>
+        <ul className="sidebar-links">
+          {
+            links.map((link) => {
+              return (
+                <li key={link.id} className="link" onClick={closeSidebar}>
+                  <a href={link.url}>{link.text}</a>
+                </li>
+              );
+            })}
+        </ul>
+        <footer>
+          <SocialBar />
+        </footer>
+      </div>
+    </Wrapper>
+  );
 };
 
 const Wrapper = styled.aside`
@@ -39,12 +43,12 @@ const Wrapper = styled.aside`
   bottom: 0;
   background-color: white;
   /* se commento sotto non applico la visibilità della sidebar */
-  /* visibility: hidden; */
+  visibility: hidden;
   /* se commento sotto non applico l'opacità della sidebar  */
-  /* opacity: 0; */
+  opacity: 0;
   transition: var(--transition);
   /* se commento sotto non applico la trasformazione della sidebar */
-  /* transform: translateX(-100%); */
+  transform: translateX(-100%);
   z-index: 2;
   .sidebar-content {
     width: 90%;

@@ -4,10 +4,14 @@ import Modal from "./Modal";
 
 function App() {
   return (
-    <div>
+    <>
       <Navbar />
       <Sidebar />
-    </div>
+      <Modal />
+      <main className="modal-controller">
+        <button className="btn btn-selector">Apri Modal</button>
+      </main>
+    </>
   );
 }
 
