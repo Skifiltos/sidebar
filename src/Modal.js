@@ -1,18 +1,20 @@
 import React from "react";
 import styled from "styled-components";
 import { AiFillCloseCircle } from "react-icons/ai";
+import { useGlobalContext } from "./context";
 
 const Modal = () => {
-  return <Wrapper>
-    <section className="modal">
+  const { isModalOpen, closeModal } = useGlobalContext();
+  return <Wrapper className={`${isModalOpen ? "show-modal-overlay" : ""}`}>
+    <section className={`${isModalOpen ? "show-modal modal" : "modal"}`}>
       <div className="modal-content">
-        <h5>Contenuto del modal</h5>;
+        <h5>Contenuto del modal</h5>
       </div>
-      <button className="btn btn-delete btn-modal">
+      <button className="btn btn-delete btn-modal" onClick={closeModal}>
         <AiFillCloseCircle className="nav-icon" />
       </button>
     </section>
-  </Wrapper>;
+  </Wrapper >;
 };
 
 const Wrapper = styled.aside`
